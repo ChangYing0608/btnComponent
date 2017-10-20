@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href=" ../resource/platform/framework/semantic/semantic.min.css">
+	<title></title>
+</head>
+<body>
+	<select id="autoSearch" name="num" class="ui selection dropdown"></select>
+	<div class="ui input">
+		<input class="" type="text"  disabled />
+	</div>
+</body>
+</html>
+<script src="../resource/platform/framework/jquery/jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="../resource/platform/framework/semantic/semantic.min.js"></script>
+<script type="text/javascript" src="autoSearch.js"></script>
+<script type="text/javascript">
+	var numData;
+	$.ajax({
+		url:'http://localhost:3000/num',
+		type:'get',
+		success:function(data){
+			numData=data;
+			var oInput = new associateSearchContainer($('#autoSearch'));
+			oInput.init(numData,"Num","Name");
+			oInput.drop();
+			$('#autoSearch').dropdown('get value');
+		},
+		error:function(err){
+			console.log(err);
+		}
+	});
+</script>
+

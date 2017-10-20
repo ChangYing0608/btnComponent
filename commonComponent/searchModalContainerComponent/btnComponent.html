@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+
+	<link rel="stylesheet" type="text/css" href="../resource/platform/framework/easyui/themes/t5mes_default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../resource/platform/framework/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href=" ../resource/platform/framework/semantic/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="searchModalContainer.css">
+</head>
+	<div id="searchModalContainer" style="display: inline-block;"></div>
+	<select id="autoSearch" name="num" class="ui selection dropdown"></select>
+	<div class="ui input">
+		<input class="" type="text"  disabled />
+	</div>
+<body>
+
+</body>
+</html>
+<script src="../resource/platform/framework/jquery/jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="../resource/platform/framework/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../resource/platform/framework/semantic/semantic.min.js"></script>
+<script type="text/javascript" src="searchModalContainer.js"></script>
+<script type="text/javascript" src="../autoSearch/autoSearch.js"></script>
+<script type="text/javascript">
+    var injectObj = {
+	 		singleSelect :true, //是否允许单选
+	 		pageSize :10,             //页面显示的条数
+	 		multiSort : true,    //是否允许多选
+	 		keyFieldName : 'Id',     //以主键为依据显示数据
+	 		aim: $('#autoSearch'), //需要赋值的标签对象
+	 		color : 'default',               //semantic按钮对应的颜色class名
+	 		name : '物料',　　　　　　 //按钮名称
+	 		title : '公司搜索',        //弹出页的title
+	 		searchName : '物料编码',   //搜索框内的提示名
+	 		url : 'http://localhost:3000/',         //数据接口
+	 		getField: 'Num',           //需要获取数据的字段
+	 		baseDataTableStructure : [[
+	 			{field: 'Id', title: 'id', hidden: true},
+				{field: 'Num', title: '物料类别编码', width: "30%"},
+				{field: 'Name', title: '物料类别名称', width: "70%"}
+	 		]]           //列表项显示的样式
+	}
+	var btnM = new BtnSearchComponent(injectObj);
+	$(document).ready(function(){
+		$('#searchModalContainer').html(btnM.template);
+		btnM.init();
+		var numData;
+		$.ajax({
+			url:'http://localhost:3000/num',
+			type:'get',
+			success:function(data){
+				numData=data;
+				var oInput = new associateSearchContainer($('#autoSearch'));
+				oInput.init(numData,"Name","Num");
+				oInput.drop();
+				$('#autoSearch').dropdown('get value');
+			},
+			error:function(err){
+				console.log(err);
+			}
+		});
+
+	})
+	// init(injectObj);
+</script>

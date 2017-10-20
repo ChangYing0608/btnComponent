@@ -1,0 +1,28 @@
+#btnOtherSearchOption {
+    line-height: 17px;
+}
+
+#modal_search_page.ui.modal > .content {
+    background: #ddd;
+}
+
+* {
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#modal_search_page form.loading {
+    height: 400px
+}
+
+#modal_search_page .datagrid {
+    margin-top: 7px
+}
+.secondMD{
+    max-width: 360px;
+}
